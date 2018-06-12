@@ -1,20 +1,30 @@
 sudo: required
 dist: trusty
-
 language: rust
-
 cache:
-  - apt
-  - cargo
-
+- apt
+- cargo
 rust:
-  - nightly
-
+- nightly
 before_script:
-  - export PATH=$HOME/.cargo/bin:$PATH
-  - cargo install cargo-travis || echo "cargo-travis already installed"
-
+- export PATH=$HOME/.cargo/bin:$PATH
+- cargo install cargo-travis || echo "cargo-travis already installed"
 script:
-  - |
-      cargo build &&
-      cargo test
+- |
+  cargo build &&
+  cargo test
+before_deploy:
+- cargo build --release --target=x86_64-unknown-linux-gnu
+- name="matrix-rocketchat-linux-x86_64"
+- mkdir $name
+- cp target/x86_64-unknown-linux-gnu/release/rust-release-test $name/
+- cp LICENSE $name/
+- tar czvf $name.tar.gz $name
+deploy:
+  provider: releases
+  api_key:
+    secure: "bihjZi88ltqjzJK/Ftd58s1XTwOmLsMxZrTIF/SbZdInbPE0ICIou0acwzLdu2Cn53afBR7LdtpLB7LmC6yH4/9N4V2PAXLzhqGrDGihmMqarCGIpxn6wcN4Ok5NUbheyDwEqVfSplRzL8TgLSR7In1sExt53WHUCsdNSwOXDch8OR02I1bhJVu4KAs1a+5YCkc9sX1aGA55cE+UFr475asVnLohegjrPISZ6K5lvzqivTP7HfL4M0fR6iXFL0z1BD0C2r4s238GyHcSul0qUIDCd3nS9/sEz1ujPNt8MFaBza0O7I7M9qPr2eH5gMBS2Gw077yYb+2DXjw+Lp4IfcCrvtdkWb8Rcn3tk5jPk6DfwvLVV+KmN+IkYlV4Wwqe38I2Vy5E7iEsX/83enbMM6cNQDrPAZt5lNJTqBIlwAqM1l/P6YEyaoPjEVtQPh9y+BLeT5gaqN33XkzF8Cm5xU18bqZG7TV0ovO+eRN0MhqVzl3c7eLfs/tKuAjwjs3t3DiTko9+Eo+inR77pmneFjWIunG0/LlIeDDPhEG1U6U5IKETzD30ICDLwuYeNnHYwLB4t2EynpZqcwUPxsYHgMwRbVAGNkc7RXjTUoD/KQ94fHyG9f3yx2pNvP1lK7Bv+YdJWSbPJUxNs8H3k77j+jgo/xCZOHfnHfy666inh8s="
+  file: matrix-rocketchat-linux-x86_64.tar.gz
+  on:
+    repo: lerux/rust-release-test
+tags: true
