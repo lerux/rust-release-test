@@ -27,4 +27,4 @@ deploy:
   file: matrix-rocketchat-linux-x86_64.tar.gz
   on:
     repo: lerux/rust-release-test
-tags: true
+tags: false
