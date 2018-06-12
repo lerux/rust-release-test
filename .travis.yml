@@ -1,0 +1,20 @@
+sudo: required
+dist: trusty
+
+language: rust
+
+cache:
+  - apt
+  - cargo
+
+rust:
+  - nightly
+
+before_script:
+  - export PATH=$HOME/.cargo/bin:$PATH
+  - cargo install cargo-travis || echo "cargo-travis already installed"
+
+script:
+  - |
+      cargo build &&
+      cargo test
