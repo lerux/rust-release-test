@@ -17,16 +17,16 @@ before_deploy:
 - name="rust-release-test-linux-x86_64"
 - mkdir $name
 - cp target/x86_64-unknown-linux-gnu/release/rust-release-test $name/
-- sha256sum $name/rust-release-test > $name/rust-release-test.sha256
 - cp LICENSE $name/
 - tar czvf $name.tar.gz $name
+- sha256sum $name.tar.gz >$name.tar.gz.sha256
 deploy:
   provider: releases
   api_key:
     secure: "wNvR1WuMsqSwfOycN3qFqoG6EDrlt1VXSxIbsLQeLGid84lLQlzTjP6uEoJ0+KZmkoCzf5NisUsYISiXrmsH9hXqN7DZznJ34pGh3aQ57MdT1bJ49Qgm4f5eXjwdnRIsl5WnrOQYlXk2IZLJfC8D8sxtWciVig0akiqjqrutREGPd6mY3I0U9Cf1578amnP9H3NeWu6dU1lAK8wlXMZ8p5ZfZeMtKXGOMRZlnEWYOyYaakZ0bPOiehrnTfEfCoi5Ly1JbGNA0cX/xcGR0SdHWWh3NsT58AJ8Vz5adxIYuW4tesls3zKgIB68pdTXxeFEkR5yhyhEgGgQG5XjjrByWfPMlWVWQ2d32QBwsX8VS8mHkR9so9bHFz+PbQOQ7bBuumTtIpbA+lT+0koIBuDmrr5x0/ls6tQLiCOADACMno124xxQgOudCGTi3rnFHWimOif8RSk6wmLkg7DXHQG9kvgc3YTkkhyfSp3PZbpwixP6+Y//V2IOFKUS/HVFPTDCua2OgpnY2Un3ZCnlsAGhJKdOFzR3ZNkr4WhjTdloYW3ibPeSkaPCNIGVpsoWCQUfDideOKA5k5GWCSXfmG5yQk5YDMRNwUlsY6iaqbmd+p35Xyh2ZFsq1oY5O6S7cUBB6o0Tjr78uNmSMriHDsn9IHTv61cfZ8kzcCTmTFSMVw4="
   file:
     - rust-release-test-linux-x86_64.tar.gz
-    - rust-release-test-linux-x86_64.sha256
+    - rust-release-test-linux-x86_64.tar.gz.sha256
   skip_cleanup: true
   on:
     branch: master
