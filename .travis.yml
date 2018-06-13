@@ -17,7 +17,7 @@ before_deploy:
 - name="rust-release-test-linux-x86_64"
 - mkdir $name
 - cp target/x86_64-unknown-linux-gnu/release/rust-release-test $name/
-- sha256sum $name/rust-release-test-linux-x86_64 > $name/rust-release-test-linux-x86_64.sha256
+- sha256sum $name/rust-release-test > $name/rust-release-test.sha256
 - cp LICENSE $name/
 - tar czvf $name.tar.gz $name
 deploy:
