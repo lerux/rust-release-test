@@ -1,3 +1,3 @@
 fn main() {
-    println!("Hello, world! 0.0.7!");
+    println!("Hello, world! 0.0.8!");
 }
