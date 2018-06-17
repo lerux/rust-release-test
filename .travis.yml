@@ -30,6 +30,7 @@ deploy:
   file:
     - rust-release-test-$TARGET-$TRAVIS_TAG.tar.gz
     - rust-release-test-$TARGET-$TRAVIS_TAG.tar.gz.sha256
+  overwrite: true
   skip_cleanup: true
   on:
     branch: master
